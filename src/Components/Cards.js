@@ -1,11 +1,18 @@
 import { Box, TextField, Button, Container } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Cards(props) {
   const [editvalues, setEditvalues] = useState(
     props.cardValues.map(() => false)
   );
-  const [edittexts, setEditTexts] = useState([...props.cardValues.title]);
+  const [edittexts, setEditTexts] = useState(
+    props.cardValues.map((card) => card.title)
+  );
+
+  useEffect(() => {
+    setEditvalues(props.cardValues.map(() => false));
+    setEditTexts(props.cardValues.map((card) => card.title));
+  }, [props.cardValues]);
 
   const handleButtonnClick = (index) => {
     const updatedEditValues = [...editvalues];
@@ -19,6 +26,19 @@ export default function Cards(props) {
     setEditTexts(updatedTexts);
   };
 
+  const handleDeleteButton = (index) => {
+    const updatedCardValues = props.cardValues.filter((_, i) => i !== index);
+    props.updateCardValues(updatedCardValues);
+  };
+
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+
+  const formattedDate = `${day}-${month}-${year}`;
+  console.log(formattedDate);
+
   return (
     <div>
       <Container
@@ -31,10 +51,10 @@ export default function Cards(props) {
           borderRadius: 3,
         }}
       >
-        <h2 style={{ textAlign: "center", margin: "10px" }}>Today's Task</h2>
+        <h2 style={{ textAlign: "center", margin: "10px" }}>Today's Task  ({formattedDate})</h2>
         {props.cardValues.map((value, index) => (
           <Box
-            key={props.cardValues.id} // Use index as the key
+            key={value.id}
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -51,8 +71,9 @@ export default function Cards(props) {
                 width: 700,
                 "& input": { color: "white" },
                 boxShadow: 10,
+                color: "white",
               }}
-            ></TextField>
+            />
             <Button
               sx={{ ml: 2, mr: 3 }}
               variant="outlined"
@@ -60,7 +81,12 @@ export default function Cards(props) {
             >
               {editvalues[index] ? "ok" : "Edit"}
             </Button>
-            <Button variant="outlined">Delete</Button>
+            <Button
+              variant="outlined"
+              onClick={() => handleDeleteButton(index)}
+            >
+              Delete
+            </Button>
           </Box>
         ))}
       </Container>

@@ -5,17 +5,17 @@ import { useState } from "react";
 const Input = (props) => {
   const [text, setText] = useState("");
   const [showCards, setShowCards] = useState(false);
-  const [cardsValue, setCardsValue] = useState([]);
+  const [cardsValue, setCardsValue] = useState([]); // Initialize with an empty array
 
   const handleTextChange = (event) => {
     setText(event.target.value);
   };
 
   const handleButtonnClick = () => {
-    if ({text}) {
+    if (text) {
       const newCard = {
         id: Math.random().toString(),
-        title: {text},
+        title: text,
       };
 
       setShowCards(true);
@@ -26,20 +26,19 @@ const Input = (props) => {
       alert("Please insert something 😀");
     }
   };
+
   return (
     <div>
       <Box
         sx={{
           display: "flex",
-
           flexDirection: "column",
-          alignItems: "centre",
+          alignItems: "center", // Correct the spelling to "center"
           justifyContent: "center",
           height: 100,
           width: 500,
           p: 5,
           mx: "auto",
-          // border : 2,
           borderRadius: 4,
           boxShadow: 10,
           mt: 5,
@@ -54,7 +53,7 @@ const Input = (props) => {
         />
         <Button
           variant="contained"
-          size="small "
+          size="small"
           sx={{ width: 100 }}
           onClick={handleButtonnClick}
         >
@@ -62,7 +61,7 @@ const Input = (props) => {
         </Button>
       </Box>
 
-      <Box>{showCards && <Cards cardValues={cardsValue}></Cards>}</Box>
+      <Box>{showCards && <Cards cardValues={cardsValue}  updateCardValues={setCardsValue}></Cards>}</Box>
     </div>
   );
 };
