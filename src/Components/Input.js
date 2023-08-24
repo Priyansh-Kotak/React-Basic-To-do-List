@@ -3,24 +3,29 @@ import Cards from "./Cards";
 import { useState } from "react";
 
 const Input = (props) => {
-  const [text, setText ] = useState('');
-  const [showCards,setShowCards] = useState(false);
-  const [cardsValue,setCardsValue] = useState([]);
-  
+  const [text, setText] = useState("");
+  const [showCards, setShowCards] = useState(false);
+  const [cardsValue, setCardsValue] = useState([]);
 
-
-
-  const handleTextChange =(event) =>{
+  const handleTextChange = (event) => {
     setText(event.target.value);
-  }
+  };
 
-  const handleButtonnClick=()=>{
+  const handleButtonnClick = () => {
+    if ({text}) {
+      const newCard = {
+        id: Math.random().toString(),
+        title: {text},
+      };
 
-
-    setShowCards(true);
-    setCardsValue((preValue)=>[...preValue,text]);
-    setText('');
-  }
+      setShowCards(true);
+      setCardsValue((preValue) => [...preValue, newCard]);
+      setText("");
+      console.log(cardsValue);
+    } else {
+      alert("Please insert something 😀");
+    }
+  };
   return (
     <div>
       <Box
@@ -32,7 +37,7 @@ const Input = (props) => {
           justifyContent: "center",
           height: 100,
           width: 500,
-          p: 5, 
+          p: 5,
           mx: "auto",
           // border : 2,
           borderRadius: 4,
@@ -47,15 +52,17 @@ const Input = (props) => {
           value={text}
           onChange={handleTextChange}
         />
-        <Button variant="contained" size="small " sx={{ width: 100 }} onClick={handleButtonnClick}>
+        <Button
+          variant="contained"
+          size="small "
+          sx={{ width: 100 }}
+          onClick={handleButtonnClick}
+        >
           Submit
         </Button>
-
       </Box>
 
-      <Box>
-        {showCards && <Cards cardValues={cardsValue} ></Cards>}
-      </Box>
+      <Box>{showCards && <Cards cardValues={cardsValue}></Cards>}</Box>
     </div>
   );
 };

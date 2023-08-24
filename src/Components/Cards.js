@@ -5,7 +5,7 @@ export default function Cards(props) {
   const [editvalues, setEditvalues] = useState(
     props.cardValues.map(() => false)
   );
-  const [edittexts, setEditTexts] = useState([...props.cardValues]);
+  const [edittexts, setEditTexts] = useState([...props.cardValues.title]);
 
   const handleButtonnClick = (index) => {
     const updatedEditValues = [...editvalues];
@@ -34,7 +34,7 @@ export default function Cards(props) {
         <h2 style={{ textAlign: "center", margin: "10px" }}>Today's Task</h2>
         {props.cardValues.map((value, index) => (
           <Box
-            key={index} // Use index as the key
+            key={props.cardValues.id} // Use index as the key
             sx={{
               display: "flex",
               justifyContent: "center",
