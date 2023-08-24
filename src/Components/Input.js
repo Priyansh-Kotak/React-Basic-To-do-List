@@ -6,6 +6,7 @@ const Input = (props) => {
   const [text, setText ] = useState('');
   const [showCards,setShowCards] = useState(false);
   const [cardsValue,setCardsValue] = useState([]);
+  
 
 
 
@@ -14,6 +15,8 @@ const Input = (props) => {
   }
 
   const handleButtonnClick=()=>{
+
+
     setShowCards(true);
     setCardsValue((preValue)=>[...preValue,text]);
     setText('');
@@ -29,7 +32,7 @@ const Input = (props) => {
           justifyContent: "center",
           height: 100,
           width: 500,
-          p: 5,
+          p: 5, 
           mx: "auto",
           // border : 2,
           borderRadius: 4,
@@ -45,12 +48,13 @@ const Input = (props) => {
           onChange={handleTextChange}
         />
         <Button variant="contained" size="small " sx={{ width: 100 }} onClick={handleButtonnClick}>
-          Contained
+          Submit
         </Button>
+
       </Box>
 
       <Box>
-        {showCards && <Cards cardValues={cardsValue} value={text}></Cards>}
+        {showCards && <Cards cardValues={cardsValue} ></Cards>}
       </Box>
     </div>
   );
